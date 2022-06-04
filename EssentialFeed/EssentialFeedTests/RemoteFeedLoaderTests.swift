@@ -16,6 +16,11 @@ class RemoteFeedLoader {
     }
 
     func load() {
+        /*
+         So far we have been hardcoding the URL, but there can be multiple URLs like staging / dev / prod.
+         It is not the responsibility of the RemoteFeedLoader to decide or know what is the URL.
+         It should be given to it instead. Let's inject the URL
+         */
         client.get(from: URL(string: "https://a-url.com")!)
     }
 }
