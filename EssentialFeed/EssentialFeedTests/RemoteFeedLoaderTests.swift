@@ -20,19 +20,16 @@ class RemoteFeedLoader {
     }
 }
 
-class HTTPClient {
+protocol HTTPClient {
 
-    // This looks like an abstract class. Hence we can convert this to a protocol.
-    func get(from url: URL) {
-
-    }
+    func get(from url: URL)
 }
 
 class HTTPClientSpy: HTTPClient {
 
     var requestedURL: URL?
 
-    override func get(from url: URL) {
+    func get(from url: URL) {
         requestedURL = url
     }
 }
