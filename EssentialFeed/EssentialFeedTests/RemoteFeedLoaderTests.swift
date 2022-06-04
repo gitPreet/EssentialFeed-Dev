@@ -10,6 +10,10 @@ import XCTest
 class RemoteFeedLoader {
 
     func load() {
+        // This is a problem.
+        // The remote feed loader needs to locate the instance and needs to know which method to call
+        // This is creating a strong coupling with the Singleton class.
+        // Instead, we need to inject the HTTPClient in the RemoteFeedLoader.
         HTTPClient.shared.get(from: URL(string: "https://a-url.com")!)
     }
 }
