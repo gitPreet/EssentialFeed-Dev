@@ -52,6 +52,14 @@ class RemoteFeedLoaderTests: XCTestCase {
         return (sut, client)
     }
 
+    /*
+     why makeSUT() return the tuple (sut, client).
+     If it only return sut, we can access client like "sut.client".
+
+     We could access the `sut.client` directly, but we recommend not doing it because the class properties are internal details. Ideally, the tests shouldn't access internal details directly. This way, we can change internal details without breaking the tests. For example, in a future lecture, all the properties will be made private without breaking the tests.
+
+     */
+
     private class HTTPClientSpy: HTTPClient {
 
         var requestedURL: URL?
