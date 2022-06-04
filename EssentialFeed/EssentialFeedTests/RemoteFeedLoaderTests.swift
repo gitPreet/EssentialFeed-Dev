@@ -22,6 +22,7 @@ class RemoteFeedLoader {
 
 class HTTPClient {
 
+    // This looks like an abstract class. Hence we can convert this to a protocol.
     func get(from url: URL) {
 
     }
