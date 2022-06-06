@@ -23,6 +23,9 @@ class RemoteFeedLoaderTests: XCTestCase {
         sut.load()
 
         XCTAssertEqual(client.requestedURL, url)
+        /*
+         When testing objects collaborating, asserting the values passed is not enough. We may also need to check, how many times the method was invoked. In this case, though the SUT is calling load once, there can be a possibility (mistake) that the client is calling the get method twice
+         */
     }
 
     // MARK: - Helper methods
