@@ -36,20 +36,16 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
 
     func test_load_deliversConnectivityErrorOnClientError() {
-        //Arrange
         let (sut, client) = makeSUT()
-        client.error = NSError(domain: "Test", code: 0)
-
-        /*
-         Right now we are stubbing the client error in the Arrange part (Setting error before load method). This is not reflecting the true asynchronous behaviour of the load method, which should ideally return the error after the get method is called.
-         So we should move the error from the Arrange to the act part
-         */
 
         //Act
         var capturedError = [RemoteFeedLoader.Error]()
         sut.load {
             capturedError.append($0)
         }
+
+        let clientError = NSError(domain: "Test", code: 0)
+        client.completions[0](clientError)
 
         XCTAssertEqual(capturedError, [.connectivity])
     }
@@ -65,13 +61,11 @@ class RemoteFeedLoaderTests: XCTestCase {
     private class HTTPClientSpy: HTTPClient {
 
         var requestedURLs = [URL]()
-        var error: NSError?
+        var completions = [(Error) -> Void]()
 
         func get(from url: URL, completion: @escaping (Error) -> Void) {
             requestedURLs.append(url)
-            if let error = error {
-                completion(error)
-            }
+            completions.append(completion)
         }
     }
 }
