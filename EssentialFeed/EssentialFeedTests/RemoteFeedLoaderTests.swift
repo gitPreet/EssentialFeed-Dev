@@ -40,6 +40,11 @@ class RemoteFeedLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         client.error = NSError(domain: "Test", code: 0)
 
+        /*
+         Right now we are stubbing the client error in the Arrange part (Setting error before load method). This is not reflecting the true asynchronous behaviour of the load method, which should ideally return the error after the get method is called.
+         So we should move the error from the Arrange to the act part
+         */
+
         //Act
         var capturedError = [RemoteFeedLoader.Error]()
         sut.load {
