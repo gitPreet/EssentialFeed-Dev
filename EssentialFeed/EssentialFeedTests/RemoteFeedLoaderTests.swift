@@ -68,8 +68,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 //    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
 //        let (sut, client) = makeSUT()
 //
-//        Until now, we have been capturing Errors returned from the sut.load method.
-//        But now, we would some sort of a empty FeedItem array which our load method doesn't support right now. Hence we would need to add a result type that can return an array of feed item when successful and and an error when failed.
+
 //
 //    }
 
@@ -84,14 +83,14 @@ class RemoteFeedLoaderTests: XCTestCase {
     private func expect(_ sut: RemoteFeedLoader,
                         toCompleteWithError error: RemoteFeedLoader.Error,
                         when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedError = [RemoteFeedLoader.Error]()
+        var capturedResults = [RemoteFeedLoader.Result]()
         sut.load {
-            capturedError.append($0)
+            capturedResults.append($0)
         }
 
         action()
 
-        XCTAssertEqual(capturedError, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
 
     private class HTTPClientSpy: HTTPClient {
