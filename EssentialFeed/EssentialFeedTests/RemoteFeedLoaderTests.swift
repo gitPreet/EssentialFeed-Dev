@@ -82,6 +82,9 @@ class RemoteFeedLoaderTests: XCTestCase {
 
         let items = [item1.model, item2.model]
         expect(sut, toCompleteWith: .success(items)) {
+            // The serialisation code should be part of the test scope.
+            // It is an implementation detail for the tests.
+            // Hence moved it to a function
             let json = makeItemsJSON([item1.json, item2.json])
             client.complete(withStatusCode: 200, data: json)
         }
