@@ -65,6 +65,14 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
     }
 
+//    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+//        let (sut, client) = makeSUT()
+//
+//        Until now, we have been capturing Errors returned from the sut.load method.
+//        But now, we would some sort of a empty FeedItem array which our load method doesn't support right now. Hence we would need to add a result type that can return an array of feed item when successful and and an error when failed.
+//
+//    }
+
     // MARK: - Helper methods
 
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
