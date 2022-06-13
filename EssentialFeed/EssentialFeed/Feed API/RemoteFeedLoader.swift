@@ -40,10 +40,10 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
             case .success(let data, let response):
-                if response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) {
-                    completion(.success(root.items.map({ $0.item
-                    })))
-                } else {
+                do {
+                    let items = try FeedItemsMapper.map(data, response)
+                    completion(.success(items))
+                } catch {
                     completion(.failure(.invalidData))
                 }
             case .failure: completion(.failure(.connectivity))
@@ -52,21 +52,32 @@ public final class RemoteFeedLoader {
     }
 }
 
-private struct Root: Decodable {
-    let items: [Item]
-}
+private struct FeedItemsMapper {
 
-private struct Item: Decodable {
+    private struct Root: Decodable {
+        let items: [Item]
+    }
 
-    private let id: UUID
-    private let description: String?
-    private let location: String?
-    private let image: URL
+    private struct Item: Decodable {
 
-    public var item: FeedItem {
-        return FeedItem(id: id,
-                        description: description,
-                        location: location,
-                        imageURL: image)
+        private let id: UUID
+        private let description: String?
+        private let location: String?
+        private let image: URL
+
+        public var item: FeedItem {
+            return FeedItem(id: id,
+                            description: description,
+                            location: location,
+                            imageURL: image)
+        }
+    }
+
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
+        guard response.statusCode == 200 else {
+            throw RemoteFeedLoader.Error.invalidData
+        }
+        let root = try JSONDecoder().decode(Root.self, from: data)
+        return root.items.map { $0.item }
     }
 }
