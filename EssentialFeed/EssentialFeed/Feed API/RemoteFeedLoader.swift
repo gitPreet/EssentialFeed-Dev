@@ -39,15 +39,8 @@ public final class RemoteFeedLoader {
     }
 
     /*
-     If we use self.map instead of the FeedItemsMapper.map we may be introducing a retain cycle.
-     this is because, the RemoteFeedLoader keeps a strong reference to the client and the block would keep a strong ref to the Remote Feed Loader. And we do not know if the implementation of the HTTP client captures the completion handler strongly or not.
-        class HTTPClientImpl: HTTPClient {
-            var completion: (HTTPClientResult) -> Void?
-            func get( completion: ...) {
-                self.completion = completion //this would cause a retain cycle
-
-                RemoteFeedLoader -> HTTPClient -> Closure (completion block) -> RemoteFeedLoader
-            }
-        }
+     Though we have decided to move the mapping logic to the FeedItemsMapper, we may have to return if self is nil on receiving the result.
+        this is because we do not what the implementation of the HTTPClient would look like.
+        If it is a singleton, it may outlive the RemoteFeedLoader, and we will recieve the completion callback even after the RemoteFeedLoader has been deallocated.. So it is upto us, if we want to  carry on with the code in the completion block even after remote feed loader has been deallocated.
      */
 }
