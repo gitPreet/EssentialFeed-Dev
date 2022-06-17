@@ -93,6 +93,14 @@ class RemoteFeedLoaderTests: XCTestCase {
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(url: url, client: client)
+        addTeardownBlock { [weak sut] in
+            XCTAssertNil(sut, "Instance should have been deallocated. Potential memory leak.")
+        }
+        /*
+         addTeardownBlock is executed after every test returns.
+         Here we need to use [weak sut] else sut will be strongly captured by the teardown block and can be never be nil.
+         (not because it creates a retain cycle)
+         */
         return (sut, client)
     }
 
