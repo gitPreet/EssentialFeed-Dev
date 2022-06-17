@@ -28,7 +28,9 @@ public final class RemoteFeedLoader {
     }
 
     public func load(completion: @escaping (RemoteFeedLoader.Result) -> Void) {
-        client.get(from: url) { result in
+        client.get(from: url) { [weak self] result in
+            guard self != nil else { return }
+
             switch result {
             case .success(let data, let response):
                 completion(FeedItemsMapper.map(data, response))
@@ -37,10 +39,4 @@ public final class RemoteFeedLoader {
             }
         }
     }
-
-    /*
-     Though we have decided to move the mapping logic to the FeedItemsMapper, we may have to return if self is nil on receiving the result.
-        this is because we do not what the implementation of the HTTPClient would look like.
-        If it is a singleton, it may outlive the RemoteFeedLoader, and we will recieve the completion callback even after the RemoteFeedLoader has been deallocated.. So it is upto us, if we want to  carry on with the code in the completion block even after remote feed loader has been deallocated.
-     */
 }
