@@ -31,14 +31,23 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
             case .success(let data, let response):
-                do {
-                    let items = try FeedItemsMapper.map(data, response)
-                    completion(.success(items))
-                } catch {
-                    completion(.failure(.invalidData))
-                }
+                completion(self.map(data, response: response))
             case .failure: completion(.failure(.connectivity))
             }
+        }
+    }
+    /*
+     Here we feel that the mapping logic can be a seperate function to keep the load function light.
+     But then we need to use self within the completion block above.
+     This can cause a memory leak but we do not have checks for memory leaks. Let's add that
+     */
+
+    private func map(_ data: Data, response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+        do {
+            let items = try FeedItemsMapper.map(data, response)
+            return .success(items)
+        } catch {
+            return .failure(.invalidData)
         }
     }
 }
