@@ -7,11 +7,6 @@
 
 import Foundation
 
-/*
- The test is forcing us to use Equatable since we cannot equate LoadFeedResult
- We conformed to Equatable just to make our tests work but in production we don't need it to be Equatable
- */
-
 public enum LoadFeedResult<Error: Swift.Error> {
     case success([FeedItem])
     case failure(Error)
