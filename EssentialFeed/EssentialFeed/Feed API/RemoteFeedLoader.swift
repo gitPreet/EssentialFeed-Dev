@@ -7,6 +7,14 @@
 
 import Foundation
 
+/*
+ We would like to conform this RemoteFeedLoader to the FeedLoader protocol.
+ But the FeedLoader protocol completion contains a result type whose Error is Error type.
+ But in our RemoteFeedLoader, the result has a failure which has an error of the RemoteFeedLoader.Error type.
+ We could move this to the FeedFeature module but in that case we would be leaking the domain specific error in the
+ FeedFeature module which should be agnostic module and should not know if the error is coming from connectivity, database etc.
+ */
+
 public final class RemoteFeedLoader {
 
     private let url: URL
