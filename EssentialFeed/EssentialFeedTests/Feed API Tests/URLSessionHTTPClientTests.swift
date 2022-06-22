@@ -141,3 +141,19 @@ class URLSessionHTTPClientTests: XCTestCase {
  It helps us to decouple the tests from production implementation.
  It helps us to hide test details from production code.
  */
+
+
+/*
+ URLProtocolStub
+
+ URLProtocol stubbing
+ The last (and our preferred) presented approach for testing network requested is to use the little-known URL Loading System to intercept and handle requests with URLProtocol stubs.
+
+ It’s our preferred approach since it solves the shortcomings of the other popular strategies.
+
+ It’s fast and reliable.
+ It’s a documented and recommended API by Apple to test network requests, so it should not have any unexpected mocking behavior.
+ It helps us to decouple the tests from production implementation.
+ It helps us to hide test details from production code.
+ 
+ */
