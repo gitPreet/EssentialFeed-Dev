@@ -119,5 +119,13 @@ class URLSessionHTTPClientTests: XCTestCase {
  Another downside to subclass mocking is the tight coupling between the tests with the production code. For example, when mocking, the tests end up asserting precise method calls (first we assert that we’ve created a data task with a given URL using a specific API, then we assert that we’ve called resume to start the request, and only then we can assert the behavior we expect).
 
  When possible, we strive to find strategies that decouple the tests from the production implementation. Doing so allows us to assert only the expected behavior instead of precise method calls. When we decouple the test from the implementation, the production code can be more easily refactored/changed without breaking the tests (as long as we keep the same behavior).
- 
+
+ */
+
+/*
+ Another approach for testing the URLSession-based solution is to use protocols that mimic the desired interfaces we’d like to spy on. For example, in the episode, we created a <HTTPSession> protocol with only the specific URLSession method we care about. The URLSessionHTTPClient then collaborates with the <HTTPSession> protocol instead of the concrete URLSession type. By doing so, we believe we improved the test code by hiding unnecessary details about the URLSession APIs. Also, we avoid overriding any methods, oppositely to the mocking by subclassing testing strategy, as we only have to implement and maintain specific methods we care about.
+
+ With the protocol-based mocking strategy we may have solved the mocked assumptions problem of the subclass-based strategy, but we still haven’t solved the tight coupling with the URLSession APIs since the protocols are mimicking its method signatures.
+
+ Additionally, by adding a set of protocols for testing the URLSession-based implementation, we introduce a lot of noise in our production code, as the protocols are created solely for testing purposes.
  */
