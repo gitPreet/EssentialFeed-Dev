@@ -103,3 +103,14 @@ class EssentialFeedAPIEndToEndTests: XCTestCase {
          return URL(string: "https://url-\(index+1).com")!
      }
 }
+
+/*
+ The default URLSession configuration is set up to cache URL responses using the shared URLCache. Thus, by making URL requests with the URLSession, we are bound to leave shared state in the OS’s filesystem through caching artifacts.
+
+ But the default cache provided is very simple - it literally just caches the URL response - and you don't have much control over it.
+
+ For example, you don't have control of how long the cache will exist, it also doesn't allow the user to modify the data while offline, and so on.
+
+ Also, if you are interested in persisting offline actions as well, such as the ability to take a photo while offline, persist it to disk and upload to the server when the internet is back, or the ability to “Like” a photo while offline and sync with the server when the device has connectivity again, then you might need a custom solution
+
+ */
