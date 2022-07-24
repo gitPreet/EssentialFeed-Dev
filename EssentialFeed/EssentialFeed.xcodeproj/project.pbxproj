@@ -24,6 +24,7 @@
 		29C4741E286D349800B36581 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C4741D286D349800B36581 /* XCTestCase+MemoryLeakTracking.swift */; };
 		29CB73992885A0430080498F /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CB73982885A0430080498F /* CacheFeedUseCaseTests.swift */; };
 		29CB7EE0288D1F1D0080498F /* LocalFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CB7EDF288D1F1D0080498F /* LocalFeedLoader.swift */; };
+		29CB7EE2288D1FAF0080498F /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CB7EE1288D1FAF0080498F /* FeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		29C4741D286D349800B36581 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		29CB73982885A0430080498F /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		29CB7EDF288D1F1D0080498F /* LocalFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFeedLoader.swift; sourceTree = "<group>"; };
+		29CB7EE1288D1FAF0080498F /* FeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				29CB7EDF288D1F1D0080498F /* LocalFeedLoader.swift */,
+				29CB7EE1288D1FAF0080498F /* FeedStore.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				293138F7285CB71A0096568F /* FeedItemsMapper.swift in Sources */,
 				29233429284799B2004291D1 /* FeedLoader.swift in Sources */,
 				2925A2A8284E3D190075AD7D /* RemoteFeedLoader.swift in Sources */,
+				29CB7EE2288D1FAF0080498F /* FeedStore.swift in Sources */,
 				29CB7EE0288D1F1D0080498F /* LocalFeedLoader.swift in Sources */,
 				293138F5285CB6860096568F /* HTTPClient.swift in Sources */,
 				29233427284798D9004291D1 /* FeedItem.swift in Sources */,
